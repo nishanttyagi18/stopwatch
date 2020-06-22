@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopatch</title>
+    <link rel="icon" href="time.svg" type="image/x-icon">
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+            color: white;
+        }
+        .timer{
+            height: 500px;
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            font-size: 120px;
+            position: relative;
+            top: 180px;
+     
+        }
+        .inner{
+            display: flex;
+            width: 400px;
+            margin: auto;
+            padding: 50px;
+            border: 2px solid gray;
+            border-radius: 70px;
+        }
+
+        .inner .minute{
+            flex: 1;
+        }
+        .inner .colon{
+            flex: 1;
+        }
+        .inner .second{
+            flex: 1;
+        }
+
+        button{
+            color: white;
+            border: none;
+        }
+        button:hover{
+            opacity: 0.5;
+            font-style: italic;
+            position: relative;
+            top: -3px;
+
+        }
+
+        .btn1 {
+            padding: 10px 20px 10px 20px;
+            font-size: 20px;
+            background-color: #008CBA;
+            border-radius: 10px;
+        }
+        .btn2 {
+            padding: 10px 20px 10px 20px;
+            font-size: 20px;
+            background-color: #F44336;
+            border-radius: 10px;
+        }
+        .btn3 {
+            padding: 10px 20px 10px 20px;
+            font-size: 20px;
+            border-radius: 10px;
+            background-color: #4CAF50;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="timer">
+        <div class="container">
+            <div class="inner">
+                <div class="minute">00</div>
+                <div class="colon"> : </div>
+                <div class="second">00</div>
+            </div>
+        </div>
+        <button class="btn1" id="start">Start</button>
+        <button class="btn2" id="stop">Stop</button>
+        <button class="btn3" id="reset">Reset</button>
+
+    </div>
+
+<script>
+    function pad(number){
+        if(number < 10){
+            return '0'+number;
+        }else{
+            return number;
+        }
+    }    
+
+    // getting all the elements
+    const start = document.querySelector('#start')
+    const stop = document.querySelector('#stop')
+    const reset = document.querySelector('#reset')
+    const minute = document.querySelector('.minute')
+    var second = document.querySelector('.second')
+
+    let interval;
+    let isRunning = false; 
+    let timerTime = 00;
+
+
+    function startTimer(){
+        if(isRunning) return;
+
+        isRunning = true;
+        interval = setInterval(incrementTimer,1000)
+    }
+
+    function stopTimer(){
+        if(!isRunning) return;
+
+        isRunning = false;
+        clearInterval(interval)
+    }
+
+    function resetTimer(){
+        stopTimer();
+
+        timerTime = 0;
+        minute.innerHTML = '00';
+        second.innerHTML = '00';
+    }
+
+
+
+    function incrementTimer(){
+        
+        timerTime++;
+        const numOfMinutes = Math.floor(timerTime / 60)
+        const numOfSeconds = timerTime % 60;
+
+        minute.innerHTML = pad(numOfMinutes);
+        second.innerHTML = pad(numOfSeconds);
+
+    }
+
+
+    start.addEventListener('click',startTimer)
+    stop.addEventListener('click',stopTimer)
+    reset.addEventListener('click',resetTimer)
+
+
+
+</script>
+</body>
+
+
+</html>
+
